@@ -1,0 +1,75 @@
+function corr(){
+    tmp=$1
+    str=""
+    for dir in ${tmp[@]}; 
+        do
+            str+="/"
+            str+=$dir
+            if [[ ${tmp[$(($i))]} == $dir ]]; then
+                break
+            fi
+        done
+    str=`echo $str`
+    cd  `echo $str`
+}
+
+function err1(){
+    echo "select direcory is out of bound."
+    exit
+}
+
+function c(){
+    tmp=$1
+    max=$((${#tmp[@]}-1))
+    str=""
+    if [ $i -le $max ]; then 
+        for dir in ${tmp[@]}; 
+            do
+                if [[ ${tmp[$(($i))]} == $dir ]]; then
+                    ESC=$(printf '\033') 
+                    dir="${ESC}[32m${dir}${ESC}[m"
+                fi
+                str+="/"
+                str+=$dir
+            done
+        echo $str
+    fi
+    
+}
+
+function b(){
+    arr=$(pwd | sed 's/\///' | sed 's/\//,/g')
+    tmp=($(echo $arr | tr "," "\n"))
+    max=$((${#tmp[@]}-1))
+    i=$(($max))
+
+    c $tmp $i
+
+    while [[ ${ch} != 'l' ]]; do
+        read -sn 1 -a ch
+        if [[ ${ch} == '' ]]; then
+            corr $tmp $i
+            break
+        elif [[ ${ch} == 'j' ]]; then
+            i=$(($i-1))
+        elif [[ ${ch} == 'k' ]]; then
+            i=$(($i+1))
+        elif [[ $i -lt 0 ]]; then
+            err1
+        elif [[ $i -gt max ]]; then
+            err1
+        else
+            break
+        fi 
+        c $tmp $i
+    done
+}
+
+b |
+    while read line; do
+        printf '\r%*s\r' ${lenLine:-${#line}}
+        printf "%s" "$line"
+        lenLine=${#line}
+    done
+echo
+
