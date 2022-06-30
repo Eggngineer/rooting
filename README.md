@@ -1,7 +1,7 @@
 ## (DOING) Rooting : CLI App
 I'm gonna make this until August
 ## *TL; DR*
-If you are like this
+If you are here
 ```shell
 $ pwd
 > /root/dirA/dirB/dirC/dirD/.../HERE
