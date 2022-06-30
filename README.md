@@ -21,4 +21,5 @@ $ cd ..
 ```
 It's a pain in the neck..., isn't it?
 
-So I'm treating this. Comming soon!
+## PREVIEW(incomplete)
+![image](./img/smooth_back_cd.gif)
